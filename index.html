@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Using the Xhr</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+        crossorigin="anonymous"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h1>Users Data</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="UserForm">
+                            <div class="form-group">
+                                <label for="name" >Enter the Name*</label>
+                                <input type="text" class="form-control" id="name" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username" >Enter the username*</label>
+                                <input type="text" class="form-control" id="username" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" >Enter the email</label>
+                                <input type="email" class="form-control" id="email" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact" >Enter the contact</label>
+                                <input type="text" class="form-control" id="contact" >
+                            </div>
+
+
+                            <div class="card-footer">
+                                <button class="btn  btn-block bg-primary  text-white" id="addBtn" >Add User</button>
+                                <button class="btn btn-block bg-danger text-white d-none" id="updateBtn">Update User</button>
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+         <div class="col-md-6 mt-1">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered m-4">
+                         <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>email</th>
+                            <th>contact</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody id="userContainer"></tbody>
+
+                    </table>
+                   
+                </div>
+            </div>
+         </div>
+        </div>
+    </div>
+    <script src="assets/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>
