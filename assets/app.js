@@ -8,6 +8,9 @@ const userContainer = document.getElementById('userContainer');
 const form = document.getElementById('UserForm')
 const addBtn =document.getElementById('addBtn');
 const updateBtn = document.getElementById('updateBtn');
+const spinner = document.getElementById('spinner');
+
+
 
 let userArr = [];
 
@@ -26,7 +29,7 @@ function fetchUsers(){
 
         if(xhr.status>=200 && xhr.status<=299){
             userArr = JSON.parse(xhr.response);
-            createTables(userArr);
+            createTables(userArr.reverse());
 
         }else{
             cl('something went wrong');
@@ -75,6 +78,7 @@ function createTables(eve){
 
 
 function onCreateTable(eve){
+  spinner.classList.remove('d-none');
     eve.preventDefault();
 
     let newObj = {
@@ -123,6 +127,8 @@ function onCreateTable(eve){
         timer: 800,
         showConfirmButton: false,
       });
+  spinner.classList.add('d-none');
+
         userContainer.prepend(tr);
          form.reset();
 
@@ -139,6 +145,8 @@ form.addEventListener('submit',onCreateTable);
 
 
 function onRemove(eve){
+  spinner.classList.remove('d-none');
+
     let removeid = eve.closest('tr').id;
 
     let removeUrl = `${baseUrl}/users/${removeid}`;
@@ -153,15 +161,25 @@ function onRemove(eve){
             eve.closest('tr').remove();
             let allTrs = [...document.querySelectorAll('#userContainer tr')]
             allTrs.forEach((tr,i)=>{
-                tr.children[0].textContent=i+1;
+                tr.children[0].textContent=allTrs.length-i;
             });
 
             Swal.fire({
-            title: "User deleted successfully",
-            icon: "success",
-            timer: 800,
-            showConfirmButton: false,
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+            if (result.isConfirmed) Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
             });
+            });
+             spinner.classList.add('d-none');
 
         }else{
             cl("something went wrong");
@@ -174,6 +192,8 @@ function onRemove(eve){
 }
 
 function onEdit(eve){
+  spinner.classList.remove('d-none');
+
     let editid = eve.closest('tr').id;
     localStorage.setItem('editid',editid);
 
@@ -194,10 +214,8 @@ function onEdit(eve){
             nameControl.value = editObj.name;
             UsernameControl.value = editObj.username;
             emailControl.value = editObj.email;
-            contactControl.value = editObj.phone;
-           
-            
-            
+            contactControl.value = editObj.phone;            
+              spinner.classList.add('d-none');            
               addBtn.classList.add("d-none");
               updateBtn.classList.remove("d-none");
         }else{
@@ -213,6 +231,8 @@ function onEdit(eve){
 
 
 function onUpdate(eve){
+  spinner.classList.remove('d-none');
+    
     eve.preventDefault();
     
     
@@ -248,12 +268,13 @@ function onUpdate(eve){
               timer: 800,
               showConfirmButton: false,
               });
+               spinner.classList.add('d-none');            
                 addBtn.classList.remove("d-none");
                 updateBtn.classList.add("d-none");
 
                form.reset();
 
-              localStorage.removeItem("editId");
+              localStorage.removeItem("editid");
 
         }else{
             cl("Something went wrong");
